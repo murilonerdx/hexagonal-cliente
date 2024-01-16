@@ -1,21 +1,34 @@
 package com.murilonerdx.hexagonal.application.core.usecase;
 
 import com.murilonerdx.hexagonal.application.core.domain.Customer;
+import com.murilonerdx.hexagonal.application.ports.in.InsertCustomerInputPort;
 import com.murilonerdx.hexagonal.application.ports.out.FindAddressByZipCodeOutputPort;
-import com.murilonerdx.hexagonal.application.ports.out.InserCustomerOutputPort;
+import com.murilonerdx.hexagonal.application.ports.out.InsertCustomerOutputPort;
+import com.murilonerdx.hexagonal.application.ports.out.SendCpfForValidationOutputPort;
 
-public class InsertCustomerUseCase {
+public class InsertCustomerUseCase implements InsertCustomerInputPort {
     private final FindAddressByZipCodeOutputPort findAddressByZipCodeOutputPort;
-    private final InserCustomerOutputPort inserCustomerOutputPort;
 
-    public InsertCustomerUseCase(FindAddressByZipCodeOutputPort findAddressByZipCodeOutputPort, InserCustomerOutputPort inserCustomerOutputPort) {
+    private final InsertCustomerOutputPort insertCustomerOutputPort;
+
+    private final SendCpfForValidationOutputPort sendCpfForValidationOutputPort;
+
+    public InsertCustomerUseCase(
+            FindAddressByZipCodeOutputPort findAddressByZipCodeOutputPort,
+            InsertCustomerOutputPort insertCustomerOutputPort,
+            SendCpfForValidationOutputPort sendCpfForValidationOutputPort
+    ) {
         this.findAddressByZipCodeOutputPort = findAddressByZipCodeOutputPort;
-        this.inserCustomerOutputPort = inserCustomerOutputPort;
+        this.insertCustomerOutputPort = insertCustomerOutputPort;
+        this.sendCpfForValidationOutputPort = sendCpfForValidationOutputPort;
     }
 
-    public void insert(Customer customer, String zipCode){
+    @Override
+    public void insert(Customer customer, String zipCode) {
         var address = findAddressByZipCodeOutputPort.find(zipCode);
         customer.setAddress(address);
-        inserCustomerOutputPort.insert(customer);
+        insertCustomerOutputPort.insert(customer);
+        sendCpfForValidationOutputPort.send(customer.getSuid());
     }
+
 }
