@@ -3,7 +3,6 @@ package com.murilonerdx.hexagonal.adapters.in.controller;
 import com.murilonerdx.hexagonal.adapters.in.controller.mapper.CustomerMapper;
 import com.murilonerdx.hexagonal.adapters.in.controller.request.CustomerRequest;
 import com.murilonerdx.hexagonal.application.ports.in.InsertCustomerInputPort;
-import com.murilonerdx.hexagonal.application.ports.out.InsertCustomerOutputPort;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
