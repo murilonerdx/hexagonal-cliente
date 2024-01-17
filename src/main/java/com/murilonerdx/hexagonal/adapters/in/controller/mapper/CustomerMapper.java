@@ -5,9 +5,7 @@ import com.murilonerdx.hexagonal.adapters.in.controller.response.CustomerRespons
 import com.murilonerdx.hexagonal.application.core.domain.Customer;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.springframework.stereotype.Component;
 
-@Component
 @Mapper(componentModel = "spring")
 public interface CustomerMapper {
 
