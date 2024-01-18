@@ -4,6 +4,7 @@ import com.murilonerdx.hexagonal.adapters.in.controller.mapper.CustomerMapper;
 import com.murilonerdx.hexagonal.adapters.in.controller.request.CustomerRequest;
 import com.murilonerdx.hexagonal.adapters.in.controller.response.CustomerResponse;
 import com.murilonerdx.hexagonal.application.core.domain.Customer;
+import com.murilonerdx.hexagonal.application.ports.in.DeleteCustomerInputPort;
 import com.murilonerdx.hexagonal.application.ports.in.FindCustomerByIdInputPort;
 import com.murilonerdx.hexagonal.application.ports.in.InsertCustomerInputPort;
 import com.murilonerdx.hexagonal.application.ports.in.UpdateCustomerInputPort;
@@ -17,17 +18,23 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/customers")
 public class CustomerController {
 
-    @Autowired
-    private InsertCustomerInputPort insertCustomerInputPort;
+    private final InsertCustomerInputPort insertCustomerInputPort;
 
-    @Autowired
-    private FindCustomerByIdInputPort findCustomerByIdInputPort;
+    private final FindCustomerByIdInputPort findCustomerByIdInputPort;
 
-    @Autowired
-    private UpdateCustomerInputPort updateCustomerInputPort;
+    private final UpdateCustomerInputPort updateCustomerInputPort;
 
-    @Autowired
-    private CustomerMapper customerMapper;
+    private final DeleteCustomerInputPort deleteCustomerInputPort;
+
+    private final CustomerMapper customerMapper;
+
+    public CustomerController(CustomerMapper customerMapper, DeleteCustomerInputPort deleteCustomerInputPort, InsertCustomerInputPort insertCustomerInputPort, FindCustomerByIdInputPort findCustomerByIdInputPort, UpdateCustomerInputPort updateCustomerInputPort) {
+        this.customerMapper = customerMapper;
+        this.deleteCustomerInputPort = deleteCustomerInputPort;
+        this.insertCustomerInputPort = insertCustomerInputPort;
+        this.findCustomerByIdInputPort = findCustomerByIdInputPort;
+        this.updateCustomerInputPort = updateCustomerInputPort;
+    }
 
     @PostMapping
     public ResponseEntity<Void> insert(@Valid @RequestBody CustomerRequest customerRequest) {
@@ -46,6 +53,12 @@ public class CustomerController {
         var customer = customerMapper.toCustomer(customerRequest);
         customer.setId(id);
         updateCustomerInputPort.update(customer, customerRequest.getZipCode());
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@Valid @PathVariable String id) {
+        deleteCustomerInputPort.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

@@ -6,8 +6,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
-@ComponentScan(basePackages = "com.murilonerdx.hexagonal.*")
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.murilonerdx.hexagonal"})
 @EnableFeignClients
 public class HexagonalApplication {
 
