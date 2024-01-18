@@ -12,8 +12,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CustomerMessage {
     private String id;
+
     private String name;
-    private Address address;
+
+    private String zipCode;
+
     private String suid;
+
     private Boolean isValidCpf;
 }

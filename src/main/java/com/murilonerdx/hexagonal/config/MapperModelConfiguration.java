@@ -1,5 +1,7 @@
 package com.murilonerdx.hexagonal.config;
 
+import com.murilonerdx.hexagonal.adapters.in.consumer.mapper.CustomerMessageMapper;
+import com.murilonerdx.hexagonal.adapters.in.consumer.message.CustomerMessage;
 import com.murilonerdx.hexagonal.adapters.in.controller.mapper.CustomerMapper;
 import com.murilonerdx.hexagonal.adapters.in.controller.request.CustomerRequest;
 import com.murilonerdx.hexagonal.adapters.in.controller.response.AddressResponse;
@@ -61,6 +63,22 @@ public class MapperModelConfiguration {
             }
         };
     }
+
+    @Bean
+    CustomerMessageMapper customerMessageMapper(){
+        return new CustomerMessageMapper() {
+            @Override
+            public Customer toCustomer(CustomerMessage customerMessage) {
+                return new Customer(null,
+                        customerMessage.getName(),
+                        null,
+                        customerMessage.getSuid(),
+                        customerMessage.getIsValidCpf()
+                );
+            }
+        };
+    }
+
 
     @Bean
     CustomerEntityMapper customerEntityMapper(){
