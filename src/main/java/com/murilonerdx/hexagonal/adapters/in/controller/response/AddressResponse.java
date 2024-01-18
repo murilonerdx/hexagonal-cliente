@@ -1,8 +1,10 @@
 package com.murilonerdx.hexagonal.adapters.in.controller.response;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class AddressResponse {
 
     private String street;

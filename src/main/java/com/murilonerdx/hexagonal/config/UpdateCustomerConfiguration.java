@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 public class UpdateCustomerConfiguration {
 
     @Bean
-    public UpdateCustomerUseCase updateCustomerAdapter(
+    public UpdateCustomerUseCase updateCustomerUseCase(
             FindCustomerByIdInputPort findCustomerByIdInputPort,
             FindAddressByZipCodeOutputPort findAddressByZipCodeOutputPort,
             UpdateCustomerOutputPort updateCustomerOutputPort

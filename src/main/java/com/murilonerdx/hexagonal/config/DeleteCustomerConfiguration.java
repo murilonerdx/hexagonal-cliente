@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class DeleteCustomerConfiguration {
 
     @Bean
-    public DeleteCustomerUseCase findCustomerByIdAdapter(
+    public DeleteCustomerUseCase deleteCustomerUseCase(
             FindCustomerByIdInputPort findCustomerByIdInputPort,
             DeleteCustomerOutputPort deleteCustomerOutputPort
     ) {

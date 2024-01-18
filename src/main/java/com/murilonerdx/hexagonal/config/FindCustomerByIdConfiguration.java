@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class FindCustomerByIdConfiguration {
 
     @Bean
-    public FindCustomerUseCase findCustomerByIdAdapter(
+    public FindCustomerUseCase findCustomerByIdUseCase(
             FindCustomerByIdOutputPort findCustomerByIdOutputPort
     ) {
         return new FindCustomerUseCase(findCustomerByIdOutputPort);

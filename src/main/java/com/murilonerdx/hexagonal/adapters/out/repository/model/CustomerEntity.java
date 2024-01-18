@@ -1,10 +1,12 @@
 package com.murilonerdx.hexagonal.adapters.out.repository.model;
 
 import com.murilonerdx.hexagonal.application.core.domain.Address;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+@Builder
 @Data
 @Document(collation = "customers")
 public class CustomerEntity {
